@@ -48,16 +48,17 @@ function App() {
 			if (item.code === code) {
 				if (item.amount % 2 === 0) {
 					const halfPrice = itemPrice * 0.25
-					console.log('itemPrice:', halfPrice);
 					itemPrice = itemPrice - halfPrice
 
 				} else if (item.amount > 1) {
 					itemPrice = item.price * (item.amount - 1)
-					itemPrice = (itemPrice - itemPrice / 2) + item.price
+					const halfPrice = itemPrice * 0.25
+					itemPrice = (itemPrice - halfPrice) + item.price
 				}
 			}
 			return acc += itemPrice
 		}, 0)
+
 	}
 
 	const getDeliveryPrice = () => {
@@ -107,9 +108,9 @@ function App() {
 							<p className=' text-gray'>Amount of items: {item.amount} </p>
 						</div>)}
 
-						<p>Subtotal: ${subTotal()}</p>
-						<p>Delivery Price: ${getDeliveryPrice().price} - {getDeliveryPrice().description}</p>
-						<p>Total Price: <span className='font-bold'>${getTotalPrice()}</span></p>
+						<p>Subtotal: ${subTotal().toFixed(2)}</p>
+						<p>Delivery Price: ${getDeliveryPrice().price.toFixed(2)} - {getDeliveryPrice().description}</p>
+						<p>Total Price: <span className='font-bold'>${getTotalPrice().toFixed(2)}</span></p>
 					</div>}
 			</section>
 		</main>
